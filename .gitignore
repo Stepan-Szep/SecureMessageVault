@@ -1,0 +1,12 @@
+# Docker
+.env
+volumes/
+postgres_data/
+
+# .NET / C#
+[Bb]in/
+[Oo]bj/
+*.user
+*.userosscache
+*.suo
+*.vscode/
