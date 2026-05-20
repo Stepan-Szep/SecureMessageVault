@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: securevault_db
+    environment:
+      POSTGRES_USER: vaultadmin
+      POSTGRES_PASSWORD: StrongPassword123!
+      POSTGRES_DB: securevault
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: securevault_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@securevault.local
+      PGADMIN_DEFAULT_PASSWORD: AdminPassword123!
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
